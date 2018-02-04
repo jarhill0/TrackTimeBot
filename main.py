@@ -145,7 +145,7 @@ def send_recap():
 
 
 def build_recap(hours):
-    text = '\t'.join(hour or '' for hour in hours)
+    text = ','.join(hour or '' for hour in hours)
     return 'Your day as reported in the last 24 hours:\n\n```{text}```'.format(text=text)
 
 

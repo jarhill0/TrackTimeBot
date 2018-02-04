@@ -50,10 +50,8 @@ message (e.g. "3 pm") at any point during the day, and it will log that activity
 anything you can put in a plain text message (not an image caption, or a caption of anything else), such as
 "3" or "programming" or "going to the beach."
 
-Every day at 12:55 am (00:55), the bot will send a tab-separated list of your past 24 hours, assuming you
-responded with at least one activity in that period. I chose tab-separated over alternatives because 
-Numbers for Mac (which I am using to track my time) supports pasting tab-separated values but not 
-comma-separated values. 
+Every day at 12:55 am (00:55), the bot will send a comma-separated list of your past 24 hours, assuming you
+responded with at least one activity in that period.
 
 The bot currently only supports running on one time zone, since it's largely a project for myself. My 
 instance runs on Pacific Time, but if you set up your own instance, it will run on whatever time zone your 
