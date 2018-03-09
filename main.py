@@ -10,6 +10,8 @@ from secrets import TOKEN
 FOLDER_PATH = os.path.dirname(os.path.abspath(__file__))
 HOURS = ('12 am', '1 am', '2 am', '3 am', '4 am', '5 am', '6 am', '7 am', '8 am', '9 am', '10 am', '11 am',
          '12 pm', '1 pm', '2 pm', '3 pm', '4 pm', '5 pm', '6 pm', '7 pm', '8 pm', '9 pm', '10 pm', '11 pm',)
+MONTHS = {1: 'January', 2: 'February', 3: 'March', 4: 'April', 5: 'May', 6: 'June', 7: 'July', 8: 'August',
+          9: 'September', 10: 'October', 11: 'November', 12: 'December'}
 TODAY = datetime.today().date()
 YESTERDAY = TODAY - timedelta(1)
 NOW = datetime.now()
@@ -146,7 +148,8 @@ def send_recap():
 
 def build_recap(hours):
     text = ','.join(hour or '' for hour in hours)
-    return 'Your day as reported in the last 24 hours:\n\n```{text}```'.format(text=text)
+    day_name = '{} {}'.format(MONTHS[YESTERDAY.month], YESTERDAY.day)  # not the best way, I know
+    return '{} as reported in the last 24 hours:\n\n```{text}```'.format(day_name, text=text)
 
 
 def finish():
