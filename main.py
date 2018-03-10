@@ -149,7 +149,7 @@ def send_recap():
 def build_recap(hours):
     text = ','.join(hour or '' for hour in hours)
     day_name = '{} {}'.format(MONTHS[YESTERDAY.month], YESTERDAY.day)  # not the best way, I know
-    return '{} as reported in the last 24 hours:\n\n```{text}```'.format(day_name, text=text)
+    return "Here's what you did on {}:\n\n```{text}```".format(day_name, text=text)
 
 
 def finish():
