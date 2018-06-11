@@ -151,7 +151,11 @@ def hourly_action():
         try:
             chat.send_message('What did you do during the following hour? '
                               'Reply to the following message so I can record it:', disable_notification=True)
-            chat.send_message(hour_str, disable_notification=True, reply_markup=pawt.force_reply())
+            message = chat.send_message(hour_str, disable_notification=True, reply_markup=pawt.force_reply())
+
+            preentered = user_info[subscribed_chat_id][NOW.hour - 1]  # entered with /next
+            if preentered:
+                message.reply(preentered)
         except pawt.APIException:
             # likely blocked
             pass
