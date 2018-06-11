@@ -91,7 +91,9 @@ def process_updates():
             for entity in m.entities:
                 if not isinstance(entity, pawt.BotCommand):
                     continue
-                COMMAND_MAP[entity.command](m)
+                command_handler = COMMAND_MAP.get(entity.command)
+                if command_handler:
+                    command_handler(m)
         else:
             if not m.reply_to_message:
                 continue
