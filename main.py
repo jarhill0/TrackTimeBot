@@ -71,7 +71,31 @@ def help_(message):
         pass
 
 
-COMMAND_MAP = {'/subscribe': subscribe, '/unsubscribe': unsubscribe, '/start': start, '/help': help_}
+def next_(message):
+    command_count = sum(1 if isinstance(entity, pawt.BotCommand) else 0 for entity in message.entities)
+    if command_count != 1:
+        response = 'Sorry, /next is only supported when it is the only command in a message.'
+        try:
+            message.chat.send_message(response)
+        except pawt.APIException:
+            # likely blocked
+            pass
+        return
+
+    full_text = message.get_text_content()
+    command = [entity for entity in message.entities if isinstance(entity, pawt.BotCommand)][0]
+    text_index = command.offset + command.length
+
+    activity_text = full_text[text_index:].strip()
+    hour = NOW.hour
+    user = user_info.get(message.chat.id)
+    if not user:
+        return
+    user[hour] = activity_text
+
+
+COMMAND_MAP = {'/subscribe': subscribe, '/unsubscribe': unsubscribe, '/start': start, '/help': help_,
+               '/next': next_}
 
 
 def process_updates():
