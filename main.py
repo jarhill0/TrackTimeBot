@@ -87,10 +87,15 @@ def next_(message):
     text_index = command.offset + command.length
 
     activity_text = full_text[text_index:].strip()
-    hour = NOW.hour
     user = user_info.get(message.chat.id)
     if not user:
         return
+
+    hour = datetime.fromtimestamp(message.date).hour
+    if hour == 0:
+        # Before the daily action at 12:55am, /next will accidentally affect the previous day. No can do.
+        return
+
     user[hour] = activity_text
 
 
